@@ -6,7 +6,7 @@ const ProductCategoriesBar = () => {
         { id: 'pipes', label: 'Pipes' },
         { id: 'fittings', label: 'Fittings' },
         { id: 'valves', label: 'Valves' },
-        { id: 'boilers', label: 'Boilers' }, // Added extra for completeness
+        { id: 'boilers', label: 'Boilers' },
         { id: 'insulation', label: 'Insulation' },
     ];
 

@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Import images
+import boiler1 from '../assets/boiler1.jpg';
+import boiler2 from '../assets/boiler2.webp';
+import valves from '../assets/valves.jpg';
+
 const HeroBanner = () => {
+    const images = [boiler1, boiler2, valves];
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 5000); // Change every 5 seconds
+
+        return () => clearInterval(interval);
+    }, [images.length]);
+
     return (
-        <section className="relative w-full h-[500px] bg-slate-900 text-white flex items-center">
-            {/* Background Image Placeholder using a gradient for now, or a solid color that fits industrial theme */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[color:var(--color-primary)] to-slate-800 opacity-90 z-0"></div>
-
-            {/* Optional: Overlay texture or pattern could go here */}
-
-            <div className="container mx-auto px-6 relative z-10 flex flex-col items-start max-w-4xl">
-                <span className="bg-white/10 text-white px-3 py-1 rounded-[4px] text-sm font-medium mb-4 backdrop-blur-sm border border-white/20">
-                    ISO 9001:2015 Certified Support
-                </span>
+        <section className="relative w-full h-[600px] bg-[color:var(--color-primary)] flex overflow-hidden">
+            {/* Left Content Side (Solid Color) */}
+            <div className="w-full md:w-1/2 flex flex-col justify-center px-10 md:px-20 relative z-20 text-white">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                    Industrial Boiler Systems & <br /> Engineering Materials
+                    <span className="text-white">Industrial Boiler Systems</span> <br />
+                    <span className="text-blue-200">& Engineering Materials</span>
                 </h1>
-                <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
+                <p className="text-lg text-blue-50 mb-8 max-w-lg leading-relaxed">
                     Premium quality pipes, fittings, valves, and boiler components.
                     We provide quotation-based supply for large-scale industrial projects.
                 </p>
@@ -25,19 +35,37 @@ const HeroBanner = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                     <Link
                         to="/products"
-                        className="flex items-center justify-center bg-white text-[color:var(--color-primary)] px-8 py-3 rounded-[4px] font-semibold hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-center bg-white text-[color:var(--color-primary)] px-8 py-3 rounded-[4px] font-semibold hover:bg-gray-100 transition-colors shadow-lg"
                     >
                         Browse Products
                         <ArrowRight className="ml-2" size={20} />
                     </Link>
                     <button
                         type="button"
-                        className="flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-[4px] font-semibold hover:bg-white/10 transition-colors"
+                        className="flex items-center justify-center border-2 border-blue-200 text-white px-8 py-3 rounded-[4px] font-semibold hover:bg-blue-800 transition-colors"
                     >
                         Request a Quote
                         <FileText className="ml-2" size={20} />
                     </button>
                 </div>
+            </div>
+
+            {/* Right Image Side (Slideshow with Clip Path) */}
+            <div className="absolute inset-0 md:static md:w-1/2 h-full relative" style={{ clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                {/* Angled Gradient Overlay for smooth blending along the cut */}
+                <div className="absolute inset-0 bg-[linear-gradient(100deg,var(--color-primary)_0%,var(--color-primary)_10%,transparent_50%)] z-10 pointer-events-none"></div>
+
+                {/* Slideshow */}
+                {images.map((img, index) => (
+                    <div
+                        key={index}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+                    >
+                        <img src={img} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                        {/* Optional Dark Overlay for slight contrast if needed, but keeping it clean for now */}
+                        <div className="absolute inset-0 bg-black/10"></div>
+                    </div>
+                ))}
             </div>
         </section>
     );
