@@ -1,0 +1,9 @@
+
+# Documentation
+*.pdf
+Boiler_Website_Requirements.pdf
+
+# Logs
+logs
+*.log
+npm-debug.log*
