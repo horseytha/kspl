@@ -11,13 +11,13 @@ const ProductCategoriesBar = () => {
     ];
 
     return (
-        <div className="bg-white border-b border-gray-200 shadow-sm overflow-x-auto">
+        <div className="bg-white border-b border-[#E0DCD4] shadow-sm overflow-x-auto">
             <div className="container mx-auto px-4 flex space-x-8 h-12 items-center text-sm font-medium min-w-max">
                 <NavLink
                     to="/products"
                     end
                     className={({ isActive }) =>
-                        `cursor-pointer py-3 border-b-2 transition-colors ${isActive ? 'border-[color:var(--color-primary)] text-[color:var(--color-primary)]' : 'border-transparent text-gray-600 hover:text-gray-900'}`
+                        `cursor-pointer py-3 border-b-2 transition-colors ${isActive ? 'border-[#E3B300] text-[#E3B300]' : 'border-transparent text-[#404040] hover:text-[#0A0A0A]'}`
                     }
                 >
                     All Products
@@ -28,7 +28,7 @@ const ProductCategoriesBar = () => {
                         key={cat.id}
                         to={`/products/${cat.id}`}
                         className={({ isActive }) =>
-                            `cursor-pointer py-3 border-b-2 transition-colors ${isActive ? 'border-[color:var(--color-primary)] text-[color:var(--color-primary)]' : 'border-transparent text-gray-600 hover:text-gray-900'}`
+                            `cursor-pointer py-3 border-b-2 transition-colors ${isActive ? 'border-[#E3B300] text-[#E3B300]' : 'border-transparent text-[#404040] hover:text-[#0A0A0A]'}`
                         }
                     >
                         {cat.label}

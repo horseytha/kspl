@@ -35,13 +35,13 @@ const FeaturedProducts = () => {
     ];
 
     return (
-        <section className="py-16 container mx-auto px-6">
+        <section className="py-16 container mx-auto px-6 bg-white">
             <div className="flex justify-between items-end mb-10">
                 <div>
-                    <h2 className="text-3xl font-bold text-[color:var(--color-primary)] mb-2">Featured Products</h2>
-                    <p className="text-gray-600">Top-rated industrial components for your engineering needs.</p>
+                    <h2 className="text-3xl font-bold text-[#E3B300] mb-2">Featured Products</h2>
+                    <p className="text-[#404040]">Top-rated industrial components for your engineering needs.</p>
                 </div>
-                <Link to="/products" className="text-[color:var(--color-primary)] font-semibold hover:underline hidden sm:block">
+                <Link to="/products" className="text-[#E3B300] font-semibold hover:text-[#C89A00] transition-colors hidden sm:block">
                     View All Products →
                 </Link>
             </div>
@@ -53,7 +53,7 @@ const FeaturedProducts = () => {
             </div>
 
             <div className="mt-8 text-center sm:hidden">
-                <Link to="/products" className="text-[color:var(--color-primary)] font-semibold hover:underline">
+                <Link to="/products" className="text-[#E3B300] font-semibold hover:text-[#C89A00] transition-colors">
                     View All Products →
                 </Link>
             </div>

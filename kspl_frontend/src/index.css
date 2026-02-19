@@ -1,13 +1,200 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #014b70;
-  --color-background: #edf4f5;
-  --color-text-main: #333333;
+  /* Primary Brand Colors */
+  --color-primary-yellow: #E3B300;
+  --color-primary-gold: #C89A00;
+  --color-black: #0A0A0A;
+  --color-grey: #404040;
+  --color-charcoal: #404400;
+  --color-dust-brown: #C0A080;
+  
+  /* Aliases */
+  --color-primary: #E3B300;
+  --color-background: #F5F2EA;
+  --color-text-main: #0A0A0A;
+  --color-text-secondary: #404040;
+  --color-border: #E0DCD4;
+  --color-success: #4CAF50;
+  --color-warning: #FF9800;
+  --color-error: #F44336;
+  --color-info: #2196F3;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-yellow);
 }
 
 body {
   background-color: var(--color-background);
   color: var(--color-text-main);
   font-family: "Inter", sans-serif;
+  line-height: 1.6;
+}
+
+/* ============ BUTTON VARIATIONS ============ */
+
+/* Primary Button - Grey */
+.btn-primary {
+  @apply px-6 py-2.5 bg-[#404040] text-white font-semibold rounded-[4px] 
+         hover:bg-[#5a5a5a] active:bg-[#2a2a2a] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+.btn-primary:disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-[#404040];
+}
+
+/* Secondary Button - Gold (was secondary) */
+.btn-secondary {
+  @apply px-6 py-2.5 bg-[#2a2a2a] text-[#E3B300] font-semibold rounded-[4px] 
+         hover:bg-[#1a1a1a] hover:text-white active:bg-[#404040] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+.btn-secondary:disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-[#2a2a2a];
+}
+
+/* Outline Button - Now outlines in black */
+.btn-outline {
+  @apply px-6 py-2.5 bg-transparent text-[#0A0A0A] font-semibold rounded-[4px] 
+         border-2 border-[#404040] 
+         hover:bg-[#404040] hover:text-white 
+         active:bg-[#2a2a2a] active:border-[#2a2a2a] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer shadow-sm;
+}
+
+.btn-outline:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Ghost Button - Now ghost yellow */
+.btn-ghost {
+  @apply px-6 py-2.5 bg-transparent text-[#C89A00] font-semibold rounded-[4px] 
+         hover:bg-[#E3B300] hover:text-[#0A0A0A] active:bg-[#C89A00] active:text-white
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none;
+}
+
+.btn-ghost:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Dark Button - Now uses yellow */
+.btn-dark {
+  @apply px-6 py-2.5 bg-[#E3B300] text-[#0A0A0A] font-semibold rounded-[4px] 
+         hover:bg-[#C89A00] active:bg-[#A87C00] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+.btn-dark:disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-[#E3B300];
+}
+
+/* Light Button - Dust Brown */
+.btn-light {
+  @apply px-6 py-2.5 bg-[#C0A080] text-white font-semibold rounded-[4px] 
+         hover:bg-[#A88666] active:bg-[#8B6F52] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+.btn-light:disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-[#C0A080];
+}
+
+/* Success Button */
+.btn-success {
+  @apply px-6 py-2.5 bg-[#4CAF50] text-white font-semibold rounded-[4px] 
+         hover:bg-[#45a049] active:bg-[#3d8b40] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+/* Danger Button */
+.btn-danger {
+  @apply px-6 py-2.5 bg-[#F44336] text-white font-semibold rounded-[4px] 
+         hover:bg-[#da190b] active:bg-[#ba130a] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none shadow-sm hover:shadow-md;
+}
+
+/* Link Button - Improved contrast */
+.btn-link {
+  @apply px-6 py-2.5 bg-transparent text-[#0A0A0A] font-semibold rounded-[4px] 
+         hover:text-[#E3B300] hover:underline active:text-[#C89A00] 
+         transition-colors duration-200 ease-in-out 
+         cursor-pointer border-none;
+}
+
+/* Button Sizes */
+.btn-sm {
+  @apply px-4 py-1.5 text-sm;
+}
+
+.btn-lg {
+  @apply px-8 py-3 text-lg;
+}
+
+.btn-xl {
+  @apply px-10 py-4 text-xl;
+}
+
+.btn-block {
+  @apply w-full;
+}
+
+/* Button Group */
+.btn-group {
+  @apply flex gap-2 flex-wrap;
+}
+
+.btn-group-vertical {
+  @apply flex flex-col gap-2;
+}
+
+/* ============ UTILITY CLASSES ============ */
+
+.text-primary {
+  @apply text-[#E3B300];
+}
+
+.text-secondary {
+  @apply text-[#404040];
+}
+
+.bg-primary {
+  @apply bg-[#E3B300];
+}
+
+.bg-secondary {
+  @apply bg-[#404040];
+}
+
+.border-primary {
+  @apply border-[#E3B300];
+}
+
+.shadow-primary {
+  @apply shadow-lg shadow-black/10;
 }

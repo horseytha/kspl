@@ -10,11 +10,12 @@ import ProductCategory from './pages/ProductCategory';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+import ButtonsDemo from './pages/ButtonsDemo';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[color:var(--color-background)] flex flex-col">
+      <div className="min-h-screen bg-white flex flex-col">
         <Navbar />
         <ProductCategoriesBar />
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/buttons-demo" element={<ButtonsDemo />} />
           </Routes>
         </main>
 
