@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import ProductCard from './ProductCard';
 
 const FeaturedProducts = () => {
@@ -24,32 +25,34 @@ const FeaturedProducts = () => {
     }, []);
 
     return (
-        <section className="py-16 container mx-auto px-6 bg-white">
-            <div className="flex justify-between items-end mb-10">
+        <section className="py-24 container mx-auto px-6 bg-[#fcfcfc] rounded-3xl mb-24 border border-gray-100">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
                 <div>
-                    <h2 className="text-3xl font-bold text-[#E3B300] mb-2">Featured Products</h2>
-                    <p className="text-[#404040]">Top-rated industrial components for your engineering needs.</p>
+                    <h2 className="text-sm font-bold text-[#E3B300] uppercase tracking-widest mb-3">Inventory Spotlight</h2>
+                    <h3 className="text-3xl md:text-5xl font-extrabold text-[#0A0A0A] mb-4">Precision Engineering Parts</h3>
+                    <p className="text-[#404040]/70 font-medium max-w-xl">Curated selection of our highest-demand industrial components, engineered for maximum durability and performance.</p>
                 </div>
-                <Link to="/products" className="text-[#E3B300] font-semibold hover:text-[#C89A00] transition-colors hidden sm:block">
-                    View All Products →
+                <Link to="/products" className="group flex items-center gap-2 bg-[#0A0A0A] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#E3B300] hover:text-[#0A0A0A] transition-all duration-500 shadow-xl">
+                    View Complete Catalog
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </Link>
             </div>
 
             {loading ? (
-                <div className="text-center">Loading...</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {[1, 2, 3, 4].map((n) => (
+                        <div key={n} className="h-[400px] bg-gray-100 animate-pulse rounded-2xl"></div>
+                    ))}
+                </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <div key={product.id} className="animate-in fade-in zoom-in-95 duration-700">
+                            <ProductCard product={product} />
+                        </div>
                     ))}
                 </div>
             )}
-
-            <div className="mt-8 text-center sm:hidden">
-                <Link to="/products" className="text-[#E3B300] font-semibold hover:text-[#C89A00] transition-colors">
-                    View All Products →
-                </Link>
-            </div>
         </section>
     );
 };

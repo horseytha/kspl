@@ -2,6 +2,7 @@ import React from 'react';
 import HeroBanner from '../components/HeroBanner';
 import FeaturedProducts from '../components/FeaturedProducts';
 import OffersSection from '../components/OffersSection';
+import WhyChooseUs from '../components/WhyChooseUs';
 import CategoryCircles from '../components/CategoryCircles';
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
         <div>
             <HeroBanner />
             <OffersSection />
+            <WhyChooseUs />
             <CategoryCircles />
             <FeaturedProducts />
         </div>
