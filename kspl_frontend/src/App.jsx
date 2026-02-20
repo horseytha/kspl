@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductCategoriesBar from './components/ProductCategoriesBar';
 import Footer from './components/Footer';
+import ContactFloatingTab from './components/ContactFloatingTab';
 
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -32,6 +33,7 @@ function App() {
         </main>
 
         <Footer />
+        <ContactFloatingTab />
       </div>
     </Router>
   );
