@@ -1,38 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 
 const FeaturedProducts = () => {
-    const products = [
-        {
-            id: 1,
-            name: 'High Pressure Seamless Pipe',
-            category: 'Pipes',
-            specs: 'ASTM A106 Gr. B, Sch 40/80',
-            image: 'https://placehold.co/400x300?text=Seamless+Pipe'
-        },
-        {
-            id: 2,
-            name: 'Industrial Gate Valve',
-            category: 'Valves',
-            specs: 'Cast Steel, ANSI 150# - 300#',
-            image: 'https://placehold.co/400x300?text=Gate+Valve'
-        },
-        {
-            id: 3,
-            name: 'Boiler Tube Bundle',
-            category: 'Boilers',
-            specs: 'Carbon Steel, Customized Lengths',
-            image: 'https://placehold.co/400x300?text=Boiler+Tubes'
-        },
-        {
-            id: 4,
-            name: 'Forged Steel Fittings',
-            category: 'Fittings',
-            specs: 'Socket Weld, Threaded 3000#',
-            image: 'https://placehold.co/400x300?text=Forged+Fittings'
-        }
-    ];
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                // Fetching all products and taking first 4. Ideally, backend should support ?limit=4
+                const response = await fetch('http://localhost:5000/api/products');
+                const data = await response.json();
+                setProducts(data.slice(0, 4));
+            } catch (err) {
+                console.error('Failed to fetch featured products', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     return (
         <section className="py-16 container mx-auto px-6 bg-white">
@@ -46,11 +35,15 @@ const FeaturedProducts = () => {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
+            {loading ? (
+                <div className="text-center">Loading...</div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+            )}
 
             <div className="mt-8 text-center sm:hidden">
                 <Link to="/products" className="text-[#E3B300] font-semibold hover:text-[#C89A00] transition-colors">
