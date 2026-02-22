@@ -1,69 +1,67 @@
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
 async function main() {
-    // Create Admin User
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    const admin = await prisma.user.upsert({
-        where: { email: 'admin@kspl.com' },
+    console.log('Seeding database...');
+
+    // Create Categories
+    const pipes = await prisma.category.upsert({
+        where: { slug: 'pipes' },
         update: {},
         create: {
-            name: 'Admin User',
-            email: 'admin@kspl.com',
-            password: hashedPassword,
-            role: 'ADMIN',
+            name: 'Pipes',
+            slug: 'pipes',
+            imageUrl: 'https://images.unsplash.com/photo-1535063406547-0b1e4575e92e?auto=format&fit=crop&q=80&w=300&h=300',
+            isFeatured: true,
         },
     });
 
-    console.log({ admin });
+    const fittings = await prisma.category.upsert({
+        where: { slug: 'fittings' },
+        update: {},
+        create: {
+            name: 'Fittings',
+            slug: 'fittings',
+            imageUrl: 'https://images.unsplash.com/photo-1533924391662-7945d81b37c0?auto=format&fit=crop&q=80&w=300&h=300',
+            isFeatured: true,
+        },
+    });
 
     // Create Products
-    const products = [
-        {
-            name: 'Industrial Steel Pipe',
-            description: 'High-quality steel pipe for industrial use.',
-            category: 'PIPES',
-            material: 'Steel',
-            price: 150.0,
-        },
-        {
-            name: 'PVC Pipe',
-            description: 'Durable PVC pipe for plumbing.',
-            category: 'PIPES',
-            material: 'PVC',
-            price: 50.0,
-        },
-        {
-            name: 'Brass Valve',
-            description: 'Heavy-duty brass valve.',
-            category: 'VALVES',
-            material: 'Brass',
-            price: 75.0,
-        },
-        {
-            name: 'Stainless Steel Fitting',
-            description: 'Corrosion-resistant fitting.',
-            category: 'FITTINGS',
-            material: 'Stainless Steel',
-            price: 30.0,
-        },
-        {
-            name: 'Industrial Boiler',
-            description: 'High-efficiency industrial boiler.',
-            category: 'BOILERS',
-            material: 'Steel',
-            price: 5000.0,
-        },
-    ];
+    await prisma.product.createMany({
+        data: [
+            {
+                name: 'Industrial Steel Pipe',
+                description: 'High strength industrial steel pipe for heavy duty applications.',
+                price: 500,
+                material: 'Steel',
+                imageUrl: 'https://images.unsplash.com/photo-1567675713437-01053c64c781?auto=format&fit=crop&q=80&w=400&h=300',
+                categoryId: pipes.id,
+                isFeatured: true,
+            },
+            {
+                name: 'Copper Fitting',
+                description: 'Durable copper fitting for plumbing.',
+                price: 150,
+                material: 'Copper',
+                imageUrl: 'https://images.unsplash.com/photo-1621257406399-6e3e15555464?auto=format&fit=crop&q=80&w=400&h=300',
+                categoryId: fittings.id,
+                isFeatured: true,
+            },
+            {
+                name: 'PVC Pipe',
+                description: 'Lightweight and durable PVC pipe.',
+                price: 50,
+                material: 'PVC',
+                imageUrl: 'https://images.unsplash.com/photo-1610128960762-b4352f1f3323?auto=format&fit=crop&q=80&w=400&h=300',
+                categoryId: pipes.id,
+                isFeatured: false,
+            }
+        ],
+    });
 
-    for (const product of products) {
-        const p = await prisma.product.create({
-            data: product,
-        });
-        console.log(`Created product with id: ${p.id}`);
-    }
+    console.log('Seeding completed.');
 }
 
 main()

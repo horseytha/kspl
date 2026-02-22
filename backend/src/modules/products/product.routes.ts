@@ -5,6 +5,8 @@ import { roleMiddleware } from '../../middlewares/role.middleware';
 
 const router = Router();
 
+router.get('/featured', productController.getFeaturedProducts);
+router.get('/category/:slug', productController.getProductsByCategory);
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);
 

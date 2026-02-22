@@ -6,6 +6,7 @@ import authRoutes from './modules/auth/auth.routes';
 import userRoutes from './modules/users/user.routes';
 import productRoutes from './modules/products/product.routes';
 import quoteRoutes from './modules/quotes/quote.routes';
+import categoryRoutes from './modules/categories/category.routes';
 import contactRoutes from './modules/contact/contact.routes';
 import newsletterRoutes from './modules/newsletter/newsletter.routes';
 
@@ -24,6 +25,7 @@ app.use(helmet({
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/newsletter', newsletterRoutes);

@@ -10,10 +10,11 @@ const FeaturedProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                // Fetching all products and taking first 4. Ideally, backend should support ?limit=4
-                const response = await fetch('http://localhost:5000/api/products');
+                // Fetch featured products from DB
+                const response = await fetch('http://localhost:5000/api/products/featured');
+                if (!response.ok) throw new Error('Failed to fetch featured products');
                 const data = await response.json();
-                setProducts(data.slice(0, 4));
+                setProducts(data);
             } catch (err) {
                 console.error('Failed to fetch featured products', err);
             } finally {

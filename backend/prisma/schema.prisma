@@ -33,15 +33,32 @@ model PasswordResetToken {
   user      User     @relation(fields: [userId], references: [id])
 }
 
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  slug        String   @unique
+  imageUrl    String?
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products    Product[]
+}
+
 model Product {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
-  category    String
-  material    String?
   price       Float?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  material    String?
+  imageUrl    String?
+  isFeatured  Boolean  @default(false)
+
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   quoteItems  QuoteItem[]
 }

@@ -1,43 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// Import images or use placeholders if specific category images aren't available yet
-// Using placeholder colors/text for now, can be replaced with real images
 const CategoryCircles = () => {
-    const categories = [
-        { id: 'pipes', label: 'Pipes', img: 'https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=400&fit=crop' },
-        { id: 'fittings', label: 'Fittings', img: 'https://images.unsplash.com/photo-1518152006812-edab29b069ac?q=80&w=400&fit=crop' },
-        { id: 'valves', label: 'Valves', img: 'https://images.unsplash.com/photo-1574639134894-13d6ed7a9d70?q=80&w=400&fit=crop' },
-        { id: 'boilers', label: 'Boilers', img: 'https://images.unsplash.com/photo-1581092583537-2abd3da58840?q=80&w=400&fit=crop' },
-    ];
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/categories/featured');
+                if (!response.ok) throw new Error('Failed to fetch categories');
+
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    const allResponse = await fetch('http://localhost:5000/api/categories');
+                    const allData = await allResponse.json();
+                    setCategories(allData.slice(0, 4));
+                } else {
+                    setCategories(data);
+                }
+            } catch (err) {
+                console.error('Failed to fetch categories', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    if (loading) return <div className="text-center py-12">Loading Categories...</div>;
+    if (categories.length === 0) return null;
 
     return (
         <section className="py-24 container mx-auto px-6 bg-white">
             <div className="flex flex-col items-center mb-16">
-                <h2 className="text-sm font-bold text-[#E3B300] uppercase tracking-widest mb-3">Product Portfolio</h2>
-                <p className="text-3xl md:text-4xl font-extrabold text-[#0A0A0A] text-center">Standardized Excellence Across Categories</p>
+                <h2 className="text-sm font-bold text-[#E3B300] uppercase tracking-widest mb-3">
+                    Product Portfolio
+                </h2>
+                <p className="text-3xl md:text-4xl font-extrabold text-[#0A0A0A] text-center">
+                    Standardized Excellence Across Categories
+                </p>
                 <div className="w-20 h-1.5 bg-[#E3B300] mt-6 rounded-full"></div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-10 md:gap-14">
                 {categories.map((cat) => (
-                    <Link key={cat.id} to={`/products/${cat.id}`} className="group flex flex-col items-center">
-                        <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden shadow-2xl border-2 border-transparent group-hover:border-[#E3B300] transition-all duration-700">
-                            {/* Glow Effect */}
-                            <div className="absolute inset-0 bg-[#E3B300]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10"></div>
-
+                    <Link key={cat.id} to={`/products/${cat.slug}`} className="group flex flex-col items-center">
+                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-md border-4 border-white group-hover:border-[#E3B300] transition-all duration-300 relative">
                             <img
-                                src={cat.img}
-                                alt={cat.label}
-                                className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-out"
+                                src={cat.imageUrl || 'https://placehold.co/150x150?text=Category'}
+                                alt={cat.name}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
-
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20"></div>
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                         </div>
-                        <span className="mt-6 text-xl font-bold text-[#404040] group-hover:text-[#0A0A0A] transition-colors relative">
-                            {cat.label}
-                            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-1 bg-[#E3B300] group-hover:w-full transition-all duration-500 rounded-full"></span>
+                        <span className="mt-4 font-semibold text-[#0A0A0A] group-hover:text-[#E3B300] transition-colors">
+                            {cat.name}
                         </span>
                     </Link>
                 ))}

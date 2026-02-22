@@ -41,9 +41,9 @@ const ProductCard = ({ product }) => {
     return (
         <div className="bg-white rounded-[4px] shadow-sm hover:shadow-lg border border-[#E0DCD4] transition-shadow overflow-hidden flex flex-col h-full">
             <div className="h-48 bg-[#F5F2EA] relative group">
-                <img src={product.image || 'https://placehold.co/400x300?text=No+Image'} alt={product.name} className="w-full h-full object-cover" />
+                <img src={product.imageUrl || 'https://placehold.co/400x300?text=No+Image'} alt={product.name} className="w-full h-full object-cover" />
                 <span className="absolute top-2 left-2 bg-[#E3B300] text-[#0A0A0A] text-xs font-bold px-2 py-1 rounded-[2px] uppercase">
-                    {product.category}
+                    {product.category?.name || 'Product'}
                 </span>
             </div>
             <div className="p-5 flex flex-col flex-grow">

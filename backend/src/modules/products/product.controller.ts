@@ -14,15 +14,26 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { category, material, minPrice, maxPrice } = req.query;
-
-        // Check if any filter is applied
-        if (category || material || minPrice || maxPrice) {
-            const products = await productService.getFilteredProducts({ category, material, minPrice, maxPrice });
-            return res.json(products);
-        }
-
         const products = await productService.getAllProducts();
+        res.json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getProductsByCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { slug } = req.params;
+        const products = await productService.getProductByCategory(slug);
+        res.json(products);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getFeaturedProducts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const products = await productService.getFeaturedProducts();
         res.json(products);
     } catch (error) {
         next(error);
