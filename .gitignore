@@ -27,5 +27,6 @@ prisma/dev.db
 *.tmp
 *.swp
 
-# PDF documentation (if not needed in repo)
+# PDF documentation
 *.pdf
+Boiler_Website_Requirements.pdf
