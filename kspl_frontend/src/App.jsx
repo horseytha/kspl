@@ -13,14 +13,20 @@ import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
-import Admin from './pages/Admin';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
     <CartProvider>
       <Router>
         <Routes>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route element={<ProtectedRoute roles={['ADMIN']} />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Route>
           <Route
             path="/*"
             element={
@@ -32,7 +38,8 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/products" element={<Products />} />
-                    <Route path="/products/:category" element={<ProductCategory />} />
+                    <Route path="/products/:id" element={<ProductDetails />} />
+                    <Route path="/products/category/:category" element={<ProductCategory />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/contact" element={<Contact />} />

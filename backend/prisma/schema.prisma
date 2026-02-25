@@ -7,22 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIN
-  CUSTOMER
-}
-
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(CUSTOMER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  quotes    Quote[]
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  email              String              @unique
+  password           String
+  role               Role                @default(USER)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
   passwordResetToken PasswordResetToken?
+  quotes             Quote[]
 }
 
 model PasswordResetToken {
@@ -34,32 +28,28 @@ model PasswordResetToken {
 }
 
 model Category {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  slug        String   @unique
-  imageUrl    String?
-  isFeatured  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  products    Product[]
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  slug       String    @unique
+  imageUrl   String?
+  isFeatured Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  products   Product[]
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String
   price       Float?
   material    String?
   imageUrl    String?
-  isFeatured  Boolean  @default(false)
-
+  isFeatured  Boolean     @default(false)
   categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  category    Category    @relation(fields: [categoryId], references: [id])
   quoteItems  QuoteItem[]
 }
 
@@ -68,7 +58,6 @@ model Quote {
   userId    Int
   status    String      @default("PENDING")
   createdAt DateTime    @default(now())
-  
   user      User        @relation(fields: [userId], references: [id])
   items     QuoteItem[]
 }
@@ -79,9 +68,8 @@ model QuoteItem {
   productId Int
   quantity  Int
   size      String?
-
-  quote     Quote   @relation(fields: [quoteId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
+  quote     Quote   @relation(fields: [quoteId], references: [id])
 }
 
 model ContactMessage {
@@ -97,4 +85,9 @@ model NewsletterSubscriber {
   id           Int      @id @default(autoincrement())
   email        String   @unique
   subscribedAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  USER
 }

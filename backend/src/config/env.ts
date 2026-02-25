@@ -4,11 +4,14 @@ import { z } from 'zod';
 dotenv.config();
 
 const envSchema = z.object({
+    NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     PORT: z.string().default('5000'),
     DATABASE_URL: z.string().url(),
     JWT_SECRET: z.string().min(10),
     EMAIL_USER: z.string().email(),
     EMAIL_PASS: z.string().min(1),
 });
+
+export type Env = z.infer<typeof envSchema>;
 
 export const env = envSchema.parse(process.env);

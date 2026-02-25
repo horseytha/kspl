@@ -1,13 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
 import * as productService from './product.service';
 import { productSchema } from './product.validation';
+import { AuthRequest } from '../../middlewares/auth.middleware';
 
-export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
+export const createProduct = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const data = productSchema.parse(req.body);
-        const product = await productService.createProduct(data);
+        console.log('Creating product with body:', req.body);
+        const data = productSchema.parse(JSON.parse(req.body.data || '{}'));
+        console.log('Parsed product data:', data);
+
+        let imageUrl = undefined;
+        if (req.file) {
+            imageUrl = `/uploads/products/${req.file.filename}`;
+            console.log('Product image uploaded:', imageUrl);
+        }
+
+        const product = await productService.createProduct({
+            ...data,
+            imageUrl
+        });
+
         res.status(201).json(product);
     } catch (error) {
+        console.error('Create Product Error:', error);
         next(error);
     }
 };

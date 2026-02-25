@@ -4,7 +4,7 @@ import { AuthRequest } from '../../middlewares/auth.middleware';
 
 export const addToQuote = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.id;
         if (!userId) throw { statusCode: 401, message: 'Unauthorized' };
 
         const { productId, quantity, size } = req.body;
@@ -23,7 +23,7 @@ export const addToQuote = async (req: AuthRequest, res: Response, next: NextFunc
 
 export const getMyQuotes = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.id;
         if (!userId) throw { statusCode: 401, message: 'Unauthorized' };
 
         const quotes = await quoteService.getQuotesByUser(userId);

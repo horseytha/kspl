@@ -4,7 +4,7 @@ import { AuthRequest } from '../../middlewares/auth.middleware';
 
 export const getProfile = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.id;
         if (!userId) throw { statusCode: 401, message: 'Unauthorized' };
 
         const user = await userService.getUserById(userId);

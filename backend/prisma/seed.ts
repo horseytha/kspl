@@ -1,9 +1,24 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log('Seeding database...');
+
+    // Create Admin User
+    const adminPassword = await bcrypt.hash('adminpassword123', 10);
+    const admin = await prisma.user.upsert({
+        where: { email: 'admin@kspl.com' },
+        update: {},
+        create: {
+            name: 'KSPL Admin',
+            email: 'admin@kspl.com',
+            password: adminPassword,
+            role: 'ADMIN',
+        },
+    });
+    console.log('Admin user created: admin@kspl.com / adminpassword123');
 
     // Create Categories
     const pipes = await prisma.category.upsert({
@@ -29,37 +44,32 @@ async function main() {
     });
 
     // Create Products
-    await prisma.product.createMany({
-        data: [
-            {
-                name: 'Industrial Steel Pipe',
-                description: 'High strength industrial steel pipe for heavy duty applications.',
-                price: 500,
-                material: 'Steel',
-                imageUrl: 'https://images.unsplash.com/photo-1567675713437-01053c64c781?auto=format&fit=crop&q=80&w=400&h=300',
-                categoryId: pipes.id,
-                isFeatured: true,
-            },
-            {
-                name: 'Copper Fitting',
-                description: 'Durable copper fitting for plumbing.',
-                price: 150,
-                material: 'Copper',
-                imageUrl: 'https://images.unsplash.com/photo-1621257406399-6e3e15555464?auto=format&fit=crop&q=80&w=400&h=300',
-                categoryId: fittings.id,
-                isFeatured: true,
-            },
-            {
-                name: 'PVC Pipe',
-                description: 'Lightweight and durable PVC pipe.',
-                price: 50,
-                material: 'PVC',
-                imageUrl: 'https://images.unsplash.com/photo-1610128960762-b4352f1f3323?auto=format&fit=crop&q=80&w=400&h=300',
-                categoryId: pipes.id,
-                isFeatured: false,
-            }
-        ],
-    });
+    const existingProducts = await prisma.product.count();
+    if (existingProducts === 0) {
+        await prisma.product.createMany({
+            data: [
+                {
+                    name: 'Industrial Steel Pipe',
+                    description: 'High strength industrial steel pipe for heavy duty applications.',
+                    price: 500,
+                    material: 'Steel',
+                    imageUrl: '/uploads/products/sample-pipe.jpg',
+                    categoryId: pipes.id,
+                    isFeatured: true,
+                },
+                {
+                    name: 'Copper Fitting',
+                    description: 'Durable copper fitting for plumbing.',
+                    price: 150,
+                    material: 'Copper',
+                    imageUrl: '/uploads/products/sample-fitting.jpg',
+                    categoryId: fittings.id,
+                    isFeatured: true,
+                }
+            ],
+        });
+        console.log('Sample products seeded.');
+    }
 
     console.log('Seeding completed.');
 }
