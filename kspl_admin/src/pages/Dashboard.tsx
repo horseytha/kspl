@@ -21,17 +21,17 @@ const Dashboard = () => {
 
     return (
         <DashboardLayout>
-            <div className="mb-10">
-                <h2 className="text-3xl font-extrabold text-white mb-2">Dashboard Overview</h2>
-                <p className="text-slate-400">Real-time metrics for KSPL Industrial Boilers</p>
+            <div className="mb-8">
+                <h2 className="text-2xl font-extrabold text-brand-text mb-1">Dashboard Overview</h2>
+                <p className="text-brand-text-muted text-sm">Real-time metrics for KSPL Industrial Boilers</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <DashboardCard
                     title="Total Products"
                     value={stats?.totalProducts || 0}
                     icon={Package}
-                    color="#3B82F6"
+                    color="#E3B300"
                     trend="+12% this month"
                 />
                 <DashboardCard
@@ -50,12 +50,12 @@ const Dashboard = () => {
             </div>
 
             {/* Placeholder for charts or recent activity */}
-            <div className="mt-12 bg-brand-card border border-slate-800 rounded-3xl p-8 flex flex-col items-center justify-center text-center py-20 grayscale opacity-50">
-                <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-6">
-                    <TrendingUp className="text-slate-400" size={32} />
+            <div className="mt-10 bg-white border border-brand-border rounded-[4px] p-10 flex flex-col items-center justify-center text-center opacity-60">
+                <div className="w-14 h-14 bg-brand-bg border border-brand-border rounded-full flex items-center justify-center mb-5">
+                    <TrendingUp className="text-brand-text-muted" size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Analytics Engine Initializing</h3>
-                <p className="max-w-md text-slate-500">
+                <h3 className="text-lg font-bold text-brand-text mb-2">Analytics Engine Initializing</h3>
+                <p className="max-w-md text-brand-text-muted text-sm">
                     Once the system collects more data, you'll see advanced growth trajectories and product performance charts here.
                 </p>
             </div>

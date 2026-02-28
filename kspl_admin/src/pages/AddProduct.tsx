@@ -85,55 +85,60 @@ const AddProduct = () => {
         }
     };
 
+    /* Shared input class */
+    const inputCls = "w-full bg-brand-bg border border-brand-border rounded-[4px] py-3 px-4 text-brand-text focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all placeholder:text-brand-text-muted text-sm";
+    const labelCls = "block text-sm font-semibold text-brand-text mb-1.5";
+
     return (
         <DashboardLayout>
-            <div className="flex items-center gap-4 mb-10">
-                <Link to="/products" className="p-3 bg-slate-800 text-slate-400 hover:text-white rounded-2xl transition-all">
-                    <ArrowLeft size={20} />
+            <div className="flex items-center gap-4 mb-8">
+                <Link to="/products" className="p-2.5 bg-white text-brand-text-secondary hover:text-brand-text border border-brand-border rounded-[4px] transition-all hover:shadow-sm">
+                    <ArrowLeft size={18} />
                 </Link>
                 <div>
-                    <h2 className="text-3xl font-extrabold text-white mb-1">New Specification</h2>
-                    <p className="text-slate-400">Add a new industrial boiler or component to the catalog</p>
+                    <h2 className="text-2xl font-extrabold text-brand-text mb-0.5">New Product</h2>
+                    <p className="text-brand-text-muted text-sm">Add a new industrial boiler or component to the catalog</p>
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-brand-card border border-slate-800 p-8 rounded-3xl space-y-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-slate-300 ml-1">Product Identity</label>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Left: Main fields */}
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="bg-white border border-brand-border rounded-[4px] p-6 shadow-sm space-y-5">
+                        <div>
+                            <label className={labelCls}>Product Name</label>
                             <input
                                 name="name"
                                 required
                                 value={formData.name}
                                 onChange={handleChange}
                                 placeholder="e.g. High-Pressure Steam Boiler"
-                                className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-brand-accent transition-all"
+                                className={inputCls}
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-slate-300 ml-1">Technical Description (Min 10 chars)</label>
+                        <div>
+                            <label className={labelCls}>Description <span className="font-normal text-brand-text-muted">(min 10 chars)</span></label>
                             <textarea
                                 name="description"
                                 required
-                                rows={6}
+                                rows={5}
                                 value={formData.description}
                                 onChange={handleChange}
                                 placeholder="Provide detailed technical specifications (e.g. pressure range, fuel type, capacity)..."
-                                className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-brand-accent transition-all resize-none"
+                                className={`${inputCls} resize-none`}
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-300 ml-1">Category</label>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className={labelCls}>Category</label>
                                 <select
                                     name="categoryId"
                                     required
                                     value={formData.categoryId}
                                     onChange={handleChange}
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-brand-accent transition-all appearance-none"
+                                    className={inputCls}
                                 >
                                     <option value="" disabled>Select Category</option>
                                     {categories.map(cat => (
@@ -141,13 +146,13 @@ const AddProduct = () => {
                                     ))}
                                 </select>
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-300 ml-1">Dominant Material</label>
+                            <div>
+                                <label className={labelCls}>Material</label>
                                 <select
                                     name="material"
                                     value={formData.material}
                                     onChange={handleChange}
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-brand-accent transition-all appearance-none"
+                                    className={inputCls}
                                 >
                                     <option value="Steel">Industrial Steel</option>
                                     <option value="Copper">Copper Alloy</option>
@@ -157,8 +162,8 @@ const AddProduct = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-slate-300 ml-1">Price Component (USD)</label>
+                        <div>
+                            <label className={labelCls}>Price (USD) <span className="font-normal text-brand-text-muted">— optional</span></label>
                             <input
                                 name="price"
                                 type="number"
@@ -166,36 +171,38 @@ const AddProduct = () => {
                                 value={formData.price}
                                 onChange={handleChange}
                                 placeholder="0.00"
-                                className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-brand-accent transition-all"
+                                className={inputCls}
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className="space-y-8">
-                    <div className="bg-brand-card border border-slate-800 p-8 rounded-3xl text-center">
-                        <h3 className="text-sm font-semibold text-slate-300 text-left mb-4 ml-1">Product Visualization</h3>
+                {/* Right: Image + Submit */}
+                <div className="space-y-5">
+                    {/* Image upload */}
+                    <div className="bg-white border border-brand-border rounded-[4px] p-5 shadow-sm">
+                        <h3 className={labelCls}>Product Image</h3>
 
-                        <div className="relative group aspect-square rounded-2xl border-2 border-dashed border-slate-800 hover:border-brand-accent transition-all overflow-hidden flex flex-col items-center justify-center bg-slate-900/50">
+                        <div className="relative group aspect-square rounded-[4px] border-2 border-dashed border-brand-border hover:border-brand-accent transition-all overflow-hidden flex flex-col items-center justify-center bg-brand-bg">
                             {preview ? (
                                 <>
                                     <img src={preview} className="w-full h-full object-cover" alt="Preview" />
                                     <button
                                         type="button"
                                         onClick={() => { setPreview(null); setImage(null); }}
-                                        className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-xl shadow-lg hover:bg-red-600 transition-colors"
+                                        className="absolute top-3 right-3 p-1.5 bg-red-500 text-white rounded-[4px] shadow hover:bg-red-600 transition-colors"
                                     >
-                                        <X size={16} />
+                                        <X size={14} />
                                     </button>
                                 </>
                             ) : (
-                                <label className="cursor-pointer flex flex-col items-center gap-4 p-8">
-                                    <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500 group-hover:text-brand-accent group-hover:bg-brand-accent/10 transition-all">
-                                        <Upload size={32} />
+                                <label className="cursor-pointer flex flex-col items-center gap-3 p-8 text-center">
+                                    <div className="w-12 h-12 bg-white border border-brand-border rounded-[4px] flex items-center justify-center text-brand-text-muted group-hover:text-brand-accent group-hover:border-brand-accent transition-all">
+                                        <Upload size={24} />
                                     </div>
-                                    <div className="space-y-1">
-                                        <p className="text-sm font-bold text-white uppercase tracking-wider">Upload Schematic</p>
-                                        <p className="text-xs text-slate-500">PNG, JPG or WEBP (Max 5MB)</p>
+                                    <div>
+                                        <p className="text-sm font-semibold text-brand-text">Upload Image</p>
+                                        <p className="text-xs text-brand-text-muted">PNG, JPG or WEBP (Max 5MB)</p>
                                     </div>
                                     <input type="file" onChange={handleFileChange} className="hidden" accept="image/*" />
                                 </label>
@@ -203,22 +210,24 @@ const AddProduct = () => {
                         </div>
                     </div>
 
+                    {/* Error */}
                     {error && (
-                        <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-medium">
+                        <div className="p-3 bg-red-50 border border-red-200 rounded-[4px] text-red-600 text-sm font-medium">
                             {error}
                         </div>
                     )}
 
+                    {/* Submit */}
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-brand-accent hover:bg-blue-600 text-white font-black py-5 rounded-3xl flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 transition-all active:scale-[0.98]"
+                        className="w-full bg-brand-accent hover:bg-brand-accent-dark text-[#0A0A0A] font-bold py-4 rounded-[4px] flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 transition-all active:scale-[0.98]"
                     >
-                        {loading ? <Loader2 className="animate-spin" /> : <Save size={24} />}
-                        PUBLISH SPECIFICATION
+                        {loading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
+                        {loading ? 'Publishing...' : 'Publish Product'}
                     </button>
 
-                    <p className="text-xs text-slate-500 text-center uppercase tracking-widest leading-relaxed">
+                    <p className="text-xs text-brand-text-muted text-center leading-relaxed">
                         By publishing, you confirm that these specifications meet the industrial standards for KSPL deployment.
                     </p>
                 </div>

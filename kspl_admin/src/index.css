@@ -1,17 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-bg: #0F172A;
-  --color-brand-sidebar: #0B3C5D;
-  --color-brand-card: #1E293B;
-  --color-brand-accent: #3B82F6;
+  /* Match kspl_frontend palette */
+  --color-brand-bg: #F5F2EA;
+  --color-brand-sidebar: #404040;
+  --color-brand-card: #FFFFFF;
+  --color-brand-accent: #E3B300;
+  --color-brand-accent-dark: #C89A00;
+  --color-brand-border: #E0DCD4;
+  --color-brand-text: #0A0A0A;
+  --color-brand-text-secondary: #404040;
+  --color-brand-text-muted: #6B6B6B;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-brand-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-accent-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-accent);
 }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-brand-bg);
-  color: white;
+  color: var(--color-brand-text);
+  line-height: 1.6;
 }

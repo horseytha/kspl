@@ -36,78 +36,85 @@ const Products = () => {
 
     return (
         <DashboardLayout>
-            <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-3xl font-extrabold text-white mb-2">Product Inventory</h2>
-                    <p className="text-slate-400">Manage your industrial catalog and technical specs</p>
+                    <h2 className="text-2xl font-extrabold text-brand-text mb-1">Product Inventory</h2>
+                    <p className="text-brand-text-muted text-sm">Manage your industrial catalog and technical specs</p>
                 </div>
                 <Link
                     to="/products/add"
-                    className="bg-brand-accent hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-2xl flex items-center gap-2 transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]"
+                    className="bg-brand-accent hover:bg-brand-accent-dark text-[#0A0A0A] font-bold py-2.5 px-5 rounded-[4px] flex items-center gap-2 transition-all shadow-sm active:scale-[0.98] text-sm"
                 >
-                    <Plus size={20} />
+                    <Plus size={18} />
                     Add New Product
                 </Link>
             </div>
 
-            <div className="bg-brand-card border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="bg-white border border-brand-border rounded-[4px] overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-slate-900/50 border-b border-slate-800">
-                                <th className="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Product</th>
-                                <th className="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Category</th>
-                                <th className="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Price</th>
-                                <th className="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Actions</th>
+                            <tr className="bg-brand-bg border-b border-brand-border">
+                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Product</th>
+                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Category</th>
+                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Price</th>
+                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800/50">
+                        <tbody className="divide-y divide-brand-border">
                             {loading ? (
                                 [1, 2, 3].map(i => (
                                     <tr key={i} className="animate-pulse">
-                                        <td className="px-8 py-6"><div className="h-12 w-48 bg-slate-800 rounded-xl"></div></td>
-                                        <td className="px-8 py-6"><div className="h-6 w-24 bg-slate-800 rounded-xl"></div></td>
-                                        <td className="px-8 py-6"><div className="h-6 w-16 bg-slate-800 rounded-xl"></div></td>
-                                        <td className="px-8 py-6"><div className="h-10 w-24 bg-slate-800 rounded-xl ml-auto"></div></td>
+                                        <td className="px-6 py-5"><div className="h-10 w-48 bg-brand-bg rounded" /></td>
+                                        <td className="px-6 py-5"><div className="h-5 w-24 bg-brand-bg rounded" /></td>
+                                        <td className="px-6 py-5"><div className="h-5 w-16 bg-brand-bg rounded" /></td>
+                                        <td className="px-6 py-5"><div className="h-8 w-20 bg-brand-bg rounded ml-auto" /></td>
                                     </tr>
                                 ))
                             ) : products.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4} className="px-8 py-20 text-center text-slate-500">No products found. Start by adding one.</td>
+                                    <td colSpan={4} className="px-6 py-16 text-center text-brand-text-muted text-sm">
+                                        No products found. Start by adding one.
+                                    </td>
                                 </tr>
                             ) : (
                                 products.map((product) => (
-                                    <tr key={product.id} className="hover:bg-slate-800/30 transition-colors group">
-                                        <td className="px-8 py-5">
+                                    <tr key={product.id} className="hover:bg-brand-bg/60 transition-colors group">
+                                        <td className="px-6 py-4">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-14 h-14 bg-slate-900 rounded-2xl border border-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+                                                <div className="w-12 h-12 bg-brand-bg rounded-[4px] border border-brand-border flex items-center justify-center overflow-hidden shrink-0">
                                                     {product.imageUrl ? (
                                                         <img src={`http://localhost:5000${product.imageUrl}`} className="w-full h-full object-cover" alt="" />
                                                     ) : (
-                                                        <ImageIcon size={20} className="text-slate-700" />
+                                                        <ImageIcon size={18} className="text-brand-text-muted" />
                                                     )}
                                                 </div>
                                                 <div>
-                                                    <p className="text-white font-bold group-hover:text-brand-accent transition-colors">{product.name}</p>
-                                                    <p className="text-slate-500 text-sm truncate max-w-xs">{product.description}</p>
+                                                    <p className="text-brand-text font-semibold text-sm group-hover:text-brand-accent transition-colors">{product.name}</p>
+                                                    <p className="text-brand-text-muted text-xs truncate max-w-xs">{product.description}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-5 text-slate-400 capitalize">{product.category?.name || 'General'}</td>
-                                        <td className="px-8 py-5 font-bold text-emerald-400">${product.price?.toLocaleString()}</td>
-                                        <td className="px-8 py-5">
-                                            <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-xl transition-all">
-                                                    <Edit size={18} />
+                                        <td className="px-6 py-4 text-brand-text-secondary text-sm capitalize">{product.category?.name || 'General'}</td>
+                                        <td className="px-6 py-4 font-bold text-green-700 text-sm">${product.price?.toLocaleString()}</td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <button className="p-2 text-brand-text-muted hover:text-brand-text hover:bg-brand-bg rounded-[4px] transition-all border border-transparent hover:border-brand-border">
+                                                    <Edit size={16} />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(product.id)}
-                                                    className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-all"
+                                                    className="p-2 text-brand-text-muted hover:text-red-600 hover:bg-red-50 rounded-[4px] transition-all border border-transparent hover:border-red-200"
                                                 >
-                                                    <Trash2 size={18} />
+                                                    <Trash2 size={16} />
                                                 </button>
-                                                <a href={`http://localhost:5173/products/${product.id}`} target="_blank" rel="noreferrer" className="p-2 text-slate-400 hover:text-brand-accent hover:bg-brand-accent/10 rounded-xl transition-all">
-                                                    <ExternalLink size={18} />
+                                                <a
+                                                    href={`http://localhost:5173/products/${product.id}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="p-2 text-brand-text-muted hover:text-brand-accent hover:bg-brand-accent/10 rounded-[4px] transition-all border border-transparent hover:border-brand-accent/30"
+                                                >
+                                                    <ExternalLink size={16} />
                                                 </a>
                                             </div>
                                         </td>

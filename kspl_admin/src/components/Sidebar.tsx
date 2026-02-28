@@ -16,41 +16,42 @@ const Sidebar = () => {
     };
 
     return (
-        <aside className="w-64 bg-brand-sidebar h-screen fixed left-0 top-0 border-r border-slate-800 flex flex-col transition-all duration-300">
-            <div className="p-6">
-                <h1 className="text-xl font-bold text-white tracking-wider flex items-center gap-2">
-                    <div className="w-8 h-8 bg-brand-accent rounded-lg flex items-center justify-center text-white">K</div>
-                    KSPL Admin
+        <aside className="w-64 bg-brand-sidebar h-screen fixed left-0 top-0 flex flex-col shadow-lg">
+            {/* Logo */}
+            <div className="p-6 border-b border-white/10">
+                <h1 className="text-xl font-bold text-white tracking-wider flex items-center gap-3">
+                    <div className="w-8 h-8 bg-brand-accent rounded-[4px] flex items-center justify-center text-[#0A0A0A] font-extrabold text-sm">K</div>
+                    <span>KSPL <span className="text-brand-accent">Admin</span></span>
                 </h1>
             </div>
 
-            <nav className="flex-1 px-4 py-6 space-y-2">
+            <nav className="flex-1 px-3 py-5 space-y-1">
                 {menuItems.map((item) => (
                     <NavLink
                         key={item.name}
                         to={item.path}
                         className={({ isActive }) =>
-                            `flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                ? 'bg-brand-accent text-white shadow-lg shadow-blue-500/20'
-                                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                            `flex items-center justify-between px-4 py-3 rounded-[4px] transition-all duration-200 group ${isActive
+                                ? 'bg-brand-accent text-[#0A0A0A] font-semibold shadow-sm'
+                                : 'text-white/70 hover:bg-white/10 hover:text-white'
                             }`
                         }
                     >
                         <div className="flex items-center gap-3">
-                            <item.icon size={20} />
-                            <span className="font-medium">{item.name}</span>
+                            <item.icon size={18} />
+                            <span className="font-medium text-sm">{item.name}</span>
                         </div>
-                        <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ChevronRight size={14} className="opacity-0 group-hover:opacity-60 transition-opacity" />
                     </NavLink>
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-slate-800">
+            <div className="p-4 border-t border-white/10">
                 <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-all duration-200"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/10 rounded-[4px] transition-all duration-200 text-sm"
                 >
-                    <LogOut size={20} />
+                    <LogOut size={18} />
                     <span className="font-medium">Sign Out</span>
                 </button>
             </div>
