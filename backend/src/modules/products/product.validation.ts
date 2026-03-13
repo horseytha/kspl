@@ -5,5 +5,4 @@ export const productSchema = z.object({
     description: z.string().min(10),
     categoryId: z.number().int().positive(),
     material: z.string().min(2).optional(),
-    price: z.number().positive().optional(),
 });

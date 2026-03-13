@@ -5,7 +5,6 @@ const AdminDashboard = () => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        price: '',
         categoryId: '1',
     });
     const [image, setImage] = useState(null);
@@ -24,7 +23,6 @@ const AdminDashboard = () => {
         const data = new FormData();
         data.append('data', JSON.stringify({
             ...formData,
-            price: formData.price ? parseFloat(formData.price) : undefined,
             categoryId: parseInt(formData.categoryId)
         }));
         if (image) data.append('image', image);
@@ -32,7 +30,7 @@ const AdminDashboard = () => {
         try {
             await api.products.create(data);
             setMessage('Product added successfully!');
-            setFormData({ name: '', description: '', price: '', categoryId: '1' });
+            setFormData({ name: '', description: '', categoryId: '1' });
             setImage(null);
         } catch (err) {
             setMessage('Error adding product: ' + err.message);
@@ -56,10 +54,6 @@ const AdminDashboard = () => {
                         <textarea name="description" value={formData.description} onChange={handleChange} required rows="4" className="w-full px-4 py-2 border rounded-md focus:ring-[#1a365d] focus:border-[#1a365d]" />
                     </div>
                     <div className="grid grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Price ($)</label>
-                            <input name="price" type="number" step="0.01" value={formData.price} onChange={handleChange} className="w-full px-4 py-2 border rounded-md focus:ring-[#1a365d] focus:border-[#1a365d]" />
-                        </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Category ID</label>
                             <input name="categoryId" type="number" value={formData.categoryId} onChange={handleChange} required className="w-full px-4 py-2 border rounded-md focus:ring-[#1a365d] focus:border-[#1a365d]" />

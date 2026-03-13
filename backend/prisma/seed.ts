@@ -51,7 +51,6 @@ async function main() {
                 {
                     name: 'Industrial Steel Pipe',
                     description: 'High strength industrial steel pipe for heavy duty applications.',
-                    price: 500,
                     material: 'Steel',
                     imageUrl: '/uploads/products/sample-pipe.jpg',
                     categoryId: pipes.id,
@@ -60,7 +59,6 @@ async function main() {
                 {
                     name: 'Copper Fitting',
                     description: 'Durable copper fitting for plumbing.',
-                    price: 150,
                     material: 'Copper',
                     imageUrl: '/uploads/products/sample-fitting.jpg',
                     categoryId: fittings.id,

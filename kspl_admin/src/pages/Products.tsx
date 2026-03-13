@@ -57,7 +57,7 @@ const Products = () => {
                             <tr className="bg-brand-bg border-b border-brand-border">
                                 <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Product</th>
                                 <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Category</th>
-                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Price</th>
+                                <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest">Material</th>
                                 <th className="px-6 py-4 text-xs font-bold text-brand-text-secondary uppercase tracking-widest text-right">Actions</th>
                             </tr>
                         </thead>
@@ -96,12 +96,15 @@ const Products = () => {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-brand-text-secondary text-sm capitalize">{product.category?.name || 'General'}</td>
-                                        <td className="px-6 py-4 font-bold text-green-700 text-sm">${product.price?.toLocaleString()}</td>
+                                        <td className="px-6 py-4 text-brand-text-secondary text-sm">{product.material || 'N/A'}</td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button className="p-2 text-brand-text-muted hover:text-brand-text hover:bg-brand-bg rounded-[4px] transition-all border border-transparent hover:border-brand-border">
+                                                <Link
+                                                    to={`/products/edit/${product.id}`}
+                                                    className="p-2 text-brand-text-muted hover:text-brand-text hover:bg-brand-bg rounded-[4px] transition-all border border-transparent hover:border-brand-border"
+                                                >
                                                     <Edit size={16} />
-                                                </button>
+                                                </Link>
                                                 <button
                                                     onClick={() => handleDelete(product.id)}
                                                     className="p-2 text-brand-text-muted hover:text-red-600 hover:bg-red-50 rounded-[4px] transition-all border border-transparent hover:border-red-200"

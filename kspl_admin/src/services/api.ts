@@ -32,6 +32,11 @@ export const api = {
             if (!res.ok) throw new Error('Failed to fetch products');
             return res.json();
         },
+        getById: async (id: number) => {
+            const res = await fetch(`${API_URL}/products/${id}`);
+            if (!res.ok) throw new Error('Failed to fetch product');
+            return res.json();
+        },
         create: async (formData: FormData) => {
             const res = await fetch(`${API_URL}/products`, {
                 method: 'POST',
@@ -41,6 +46,18 @@ export const api = {
             if (!res.ok) {
                 const error = await res.json();
                 throw new Error(error.message || 'Failed to create product');
+            }
+            return res.json();
+        },
+        update: async (id: number, formData: FormData) => {
+            const res = await fetch(`${API_URL}/products/${id}`, {
+                method: 'PUT',
+                headers: getHeaders(true),
+                body: formData,
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.message || 'Failed to update product');
             }
             return res.json();
         },

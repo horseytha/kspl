@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import ProductCategoriesBar from './components/ProductCategoriesBar';
 import Footer from './components/Footer';
 import ContactFloatingTab from './components/ContactFloatingTab';
+import FloatingCartButton from './components/FloatingCartButton';
 import { CartProvider } from './context/CartContext';
 
 import Home from './pages/Home';
@@ -49,6 +50,7 @@ function App() {
 
                 <Footer />
                 <ContactFloatingTab />
+                <FloatingCartButton />
               </div>
             }
           />

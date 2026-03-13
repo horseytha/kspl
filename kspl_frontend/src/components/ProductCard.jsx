@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Check, Eye } from 'lucide-react';
+import { FileText, Check, Eye } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
@@ -41,9 +41,7 @@ const ProductCard = ({ product }) => {
                 </Link>
                 <p className="text-sm text-[#404040] mb-4 flex-grow line-clamp-2">{product.description || product.specs}</p>
 
-                {product.price && (
-                    <p className="text-[#E3B300] font-bold mb-4">${product.price}</p>
-                )}
+
 
                 <div className="mt-auto space-y-2">
                     <div className="flex gap-2">
@@ -73,7 +71,7 @@ const ProductCard = ({ product }) => {
                         {added ? (
                             <><Check size={16} /> Added!</>
                         ) : (
-                            <><ShoppingCart size={16} /> Add to Cart</>
+                            <><FileText size={16} /> Add to Quote</>
                         )}
                     </button>
                 </div>

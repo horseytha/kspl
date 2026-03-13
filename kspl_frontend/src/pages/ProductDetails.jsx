@@ -50,13 +50,9 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 mb-10">
-                            <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center justify-between">
                                 <span className="text-gray-500 font-medium">Material:</span>
                                 <span className="text-gray-900 font-bold">{product.material || 'Premium Industrial Steel'}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-gray-500 font-medium">Estimated Price:</span>
-                                <span className="text-[#1a365d] text-2xl font-black">${product.price?.toLocaleString()}</span>
                             </div>
                         </div>
 

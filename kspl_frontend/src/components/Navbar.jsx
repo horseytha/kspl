@@ -7,7 +7,7 @@ const Navbar = () => {
     const { totalItems } = useCart();
 
     return (
-        <nav className="h-[70px] bg-[#404040] text-white flex items-center justify-between px-6 shadow-lg relative z-40">
+        <nav className="h-[70px] bg-[#404040] text-white flex items-center justify-between px-6 shadow-lg sticky top-0 z-50">
             {/* Left: Logo */}
             <div className="flex items-center">
                 <Link to="/" className="text-2xl font-bold tracking-tight">

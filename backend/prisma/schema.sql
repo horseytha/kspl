@@ -40,7 +40,6 @@ CREATE TABLE "Product" (
     "id" SERIAL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "price" DOUBLE PRECISION,
     "material" TEXT,
     "imageUrl" TEXT,
     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
